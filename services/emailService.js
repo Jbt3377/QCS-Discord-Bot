@@ -14,19 +14,13 @@ function validateQubEmail(emailAddress){
 
 function sendEmail(emailAddress){
 
-    // Validation Disabled - Student Number Emails not currently reliable
-    if (false) {
-        if (!validateQubEmail(emailAddress)) return false;
-    }
+    // Validation 
+    // if (!validateQubEmail(emailAddress)) return false;
 
     const sgMail = require('@sendgrid/mail');
-    //sgMail.setApiKey(prop.get("SENDGRID_API_KEY"))
     sgMail.setApiKey(getProperty("SENDGRID_API_KEY"))
 
     console.log("Ready to send email")
-
-    // "to:" Target email address, any account
-    // "from:" Email address of a Verified Single Sender account or Authenticated Domain (See SendGrid Docs)
 
     const msg = {
         to: emailAddress,
@@ -43,6 +37,4 @@ function sendEmail(emailAddress){
     });
 }
 
-const name = "emailService";
-module.exports.name = name;
 module.exports.sendEmail = sendEmail;

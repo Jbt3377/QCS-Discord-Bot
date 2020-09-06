@@ -2,33 +2,14 @@
 const Discord = require("discord.js");
 const client = new Discord.Client();
 
-const PREFIX = "!";
+PREFIX = "!"
 
-// Require Command and Service files
-const fs = require("fs");
-
-client.commands = new Discord.Collection();
-const commandFiles = fs.readdirSync("./commands/").filter(file => file.endsWith(".js"));
-
-client.services = new Discord.Collection();
-const serviceFiles = fs.readdirSync("./services/").filter(file => file.endsWith(".js"));
-
-for (const file of commandFiles) {
-    const command = require(`./commands/${file}`)
-    client.commands.set(command.name, command);
-}
-
-for (const file of serviceFiles) {
-    const service = require(`./services/${file}`)
-    client.services.set(service.name, service);
-}
-
-// Property Reader
-// const PropertiesReader = require('properties-reader');
-// const prop = PropertiesReader('./bot.properties');
-// getProperty = (pty) => {return prop.get(pty);}
-
+// Require Environment Variables
 const getProperty = require("./envs/environments.js")
+
+// Require Services
+const commands = require('./services/commandService.js')
+const sendEmail = require("./services/emailService.js")
 
 
 client.once("ready", () => {
@@ -51,7 +32,7 @@ client.on("message", message => {
 
     if(message.channel.type === "dm"){
         console.log("DM Detected");
-        client.services.get("emailService").sendEmail(message.content);
+        sendEmail(message.content);
         return;
     }
 
@@ -65,20 +46,20 @@ function checkForCommand(message){
     const command = args.shift().toLowerCase();
 
     switch(command){
-        case "twitter":
-            client.commands.get("twitter").execute(message, args);
+        case "facebook":
+            commands.facebook(message, args);
             break;
 
-        case "facebook":
-            client.commands.get("facebook").execute(message, args);
+        case "twitter":
+            commands.twitter(message, args);
             break;
 
         case "instagram":
-            client.commands.get("instagram").execute(message, args);
+            commands.instagram(message, args);
             break;
 
         case "help":
-            client.commands.get("help").execute(message, args);
+            commands.help(message, args);
             break;
 
         default:
