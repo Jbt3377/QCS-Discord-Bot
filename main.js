@@ -9,7 +9,7 @@ const getProperty = require("./envs/environments.js")
 
 // Require Services
 const commands = require('./services/commandService.js')
-const sendEmail = require("./services/emailService.js")
+const pmService = require("./services/pmService.js")
 
 
 client.once("ready", () => {
@@ -18,10 +18,13 @@ client.once("ready", () => {
 });
 
 client.on('guildMemberAdd', member => {
+
+    if(message.author.bot) return;
+
     const embed = new Discord.MessageEmbed()
-        .setTitle("Welcome to the QCS Discord Server!")
+        .setAuthor('QCS Bot | Welcome to the QCS Discord Server!', 'https://imgur.com/mywYsgU.png')
         .setColor(0x039BEF)
-        .setDescription("Enter your QUB Email Address below to verify your membership")
+        .setDescription("Enter your QUB Email Address below to verify you are a Queen's Student")
         .setFooter("Message should be in the form <student-number>@qub.ac.uk");
     member.send(embed);
  });
@@ -32,7 +35,7 @@ client.on("message", message => {
 
     if(message.channel.type === "dm"){
         console.log("DM Detected");
-        sendEmail(message.content);
+        pmService(message)
         return;
     }
 

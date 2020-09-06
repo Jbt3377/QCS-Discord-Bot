@@ -1,26 +1,13 @@
 const getProperty = require("../envs/environments.js")
 
-function validateQubEmail(emailAddress){
+let sendEmail = function(emailAddress){
 
-    const QUB_DOMAIN = "@qub.ac.uk";
-    const STUDENT_NUMBER_FORMAT = new RegExp(/\d{8}/);
-
-    if(emailAddress.length != 18) return false;
-
-    const studentNumber = emailAddress.substring(0, 8);
-    const emailDomain = emailAddress.substring(8).toLowerCase();
-    return (studentNumber.match(STUDENT_NUMBER_FORMAT)) && (emailDomain === QUB_DOMAIN)
-}
-
-function sendEmail(emailAddress){
-
-    // Validation 
-    // if (!validateQubEmail(emailAddress)) return false;
+    console.log("Entered sendEmail fucntion")
 
     const sgMail = require('@sendgrid/mail');
     sgMail.setApiKey(getProperty("SENDGRID_API_KEY"))
 
-    console.log("Ready to send email")
+    // ToDO: Setup Domain Authentication with QCS website domain
 
     const msg = {
         to: emailAddress,
@@ -31,10 +18,11 @@ function sendEmail(emailAddress){
     }
 
     sgMail.send(msg).then(() => {
-        console.log('Message sent')
+        console.log('Email sent successfully')
     }).catch((error) => {
+        console.log('Email failed to send:')
         console.log(error.response.body)
     });
 }
 
-module.exports.sendEmail = sendEmail;
+module.exports = sendEmail;
