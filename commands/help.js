@@ -3,11 +3,13 @@ const Discord = require("discord.js");
 let help = function(message, args){
 
     const embed = new Discord.MessageEmbed()
+        .setAuthor('QCS Bot', 'https://imgur.com/mywYsgU.png', 'https://github.com/QCSQUB')
+        .setThumbnail('https://imgur.com/mywYsgU.png')
+        .setURL('https://github.com/QCSQUB')
+        .setColor(0x039BEF)
+
         .setTitle("List of Commands")
-        .setColor(0x0000FF)
-        .addField("Link to QCS Twitter", "!twitter")
-        .addField("Link to QCS Facebook", "!facebook")
-        .addField("Link to QCS Instagram", "!instagram")
+        .addField("Links to QCS Socials", "`!twitter`  `!facebook`  `!instagram`", true)
     message.channel.send(embed);
 }
 
