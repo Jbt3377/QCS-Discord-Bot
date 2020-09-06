@@ -8,12 +8,13 @@ let sendEmail = function(emailAddress){
     sgMail.setApiKey(getProperty("SENDGRID_API_KEY"))
 
     // ToDO: Setup Domain Authentication with QCS website domain
+    // Currently Single Sender Verification (emailing yourself for testing)
 
     const msg = {
-        to: emailAddress,
-        from: 'beattyjoshua55@gmail.com',
+        to: 'jbt337733@gmail.com',
+        from: 'jbt337733@gmail.com',
         subject: 'Welcome to the QCS Discord!',
-        text: 'This is just a simple email to verify you are a QUB student! Student Number!!',
+        text: 'This is just a simple email to verify you are a QUB student! Student Number!',
         html: '<strong>This is just a simple email to verify you are a QUB student! Student Number!!</strong>',
     }
 
@@ -21,7 +22,7 @@ let sendEmail = function(emailAddress){
         console.log('Email sent successfully')
     }).catch((error) => {
         console.log('Email failed to send:')
-        console.log(error.response.body)
+        console.log(error)
     });
 }
 

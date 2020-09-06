@@ -19,11 +19,10 @@ client.once("ready", () => {
 
 client.on('guildMemberAdd', member => {
 
-    if(message.author.bot) return;
-
     const embed = new Discord.MessageEmbed()
-        .setAuthor('QCS Bot | Welcome to the QCS Discord Server!', 'https://imgur.com/mywYsgU.png')
+        .setAuthor('QCS Bot | Registration', 'https://imgur.com/mywYsgU.png')
         .setColor(0x039BEF)
+        .setTitle("Welcome to the QCS Discord Server!")
         .setDescription("Enter your QUB Email Address below to verify you are a Queen's Student")
         .setFooter("Message should be in the form <student-number>@qub.ac.uk");
     member.send(embed);
