@@ -19,6 +19,8 @@ client.once("ready", () => {
 
 client.on('guildMemberAdd', member => {
 
+    member.roles.add(member.guild.roles.cache.find(role => role.name === "Awaiting Role"));
+
     const embed = new Discord.MessageEmbed()
         .setAuthor('QCS Bot | Registration', 'https://imgur.com/mywYsgU.png')
         .setColor(0x039BEF)
