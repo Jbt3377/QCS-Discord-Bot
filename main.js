@@ -9,7 +9,7 @@ const getProperty = require("./envs/environments.js")
 
 // Require Services
 const commandHandler = require('./services/commandService.js')
-const pmService = require("./services/pmService.js")
+const pmHandler = require("./services/pmService.js")
 
 
 client.once("ready", () => {
@@ -36,7 +36,7 @@ client.on("message", message => {
 
     if(message.channel.type === "dm"){
         console.log("DM Detected");
-        pmService(message)
+        pmHandler(message)
         return;
     }
 

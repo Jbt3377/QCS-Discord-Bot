@@ -14,7 +14,7 @@ function validateQubEmail(emailAddress){
     return (studentNumber.match(STUDENT_NUMBER_FORMAT)) && (emailDomain === QUB_DOMAIN)
 }
 
-let pmService = function(message){
+let pmHandler = function(message){
 
     // ToDo: Work out the interactions in Bot PMs
 
@@ -38,4 +38,4 @@ let pmService = function(message){
     }
 }
 
-module.exports = pmService
+module.exports = pmHandler
