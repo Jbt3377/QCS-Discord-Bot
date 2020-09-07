@@ -1,11 +1,15 @@
 # QCS-Discord-Bot
 The Open-Source Discord Bot for the QCS Discord Server.
 
-## Getting Started
+It is used for;
+* Registering QUB Students on the public Discord Server
+* Validaing student membership
+* Setting member NickNames
 
-What follows will get a version of the QCS Discord Bot up and running on your local machine
 
-### Installation
+What follows will get a version of the QCS Discord Bot up and running on your local machine...
+
+## Installation
 
 Please install the following;
 
@@ -13,7 +17,7 @@ Please install the following;
 * IDE of choice. I reccomend [VS Code](https://code.visualstudio.com/).
 
 
-### Set up for Running Locally
+## Set up for Running Locally
 
 1. Clone the [QCS Discord Bot](https://github.com/Jbt3377/QCS-Discord-Bot) repo to your local machine.
 
