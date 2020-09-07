@@ -3,7 +3,8 @@ const Discord = require("discord.js");
 
 function validateQubEmail(emailAddress){
 
-    console.log("Entered Validation")
+    console.log("DEBUG - Entered Validation")
+    
     if(emailAddress.length != 18) return false;
 
     const QUB_DOMAIN = "@qub.ac.uk";
@@ -20,7 +21,7 @@ let pmHandler = function(message){
 
     // Send email if Valid Student Number QUB Email
     if(validateQubEmail(message.content)){
-        console.log("Email Validated")
+        console.log("DEBUG - Email Validated")
         sendEmail(message.content)
 
         const embed = new Discord.MessageEmbed()
@@ -29,7 +30,11 @@ let pmHandler = function(message){
             .setDescription("Check your inbox for our email and click the verify button!")
         message.channel.send(embed);
 
+        console.log("DEBUG - Valid Email")
+
     }else{
+        console.log("WARN - Invalid Email")
+
         const embed = new Discord.MessageEmbed()
             .setColor(0x039BEF)
             .setTitle("Invalid QUB Email!")

@@ -13,8 +13,8 @@ const pmHandler = require("./services/pmService.js")
 
 
 client.once("ready", () => {
-    console.log("QCS Bot is online");
-    console.log(getProperty("SENDGRID_API_KEY"))
+    console.log("INFO - QCS Bot is online");
+    console.log("INFO - SendGrid API Key: " + getProperty("SENDGRID_API_KEY"))
 });
 
 client.on('guildMemberAdd', member => {
@@ -34,8 +34,10 @@ client.on("message", message => {
 
     if(message.author.bot) return;
 
+    console.log("DEBUG - ==== New Message Detected ====");
+
     if(message.channel.type === "dm"){
-        console.log("DM Detected");
+        console.log("DEBUG - Private Message Detected");
         pmHandler(message)
         return;
     }
