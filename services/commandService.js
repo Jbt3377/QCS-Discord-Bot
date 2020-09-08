@@ -3,9 +3,13 @@ const commands = require('../commands/commands.js')
 let commandHandler = function(message){
 
     const args = message.content.slice(PREFIX.length).split(/ +/);
+
+    console.log("DEBUG - args: " + args);
+
     const command = args.shift().toLowerCase();
 
     console.log("DEBUG - Command Detected");
+    console.log("DEBUG - Command: " + command);
 
     switch(command){
         case "facebook":
@@ -22,6 +26,10 @@ let commandHandler = function(message){
 
         case "help":
             commands.help(message, args);
+            break;
+
+        case "setnickname":
+            commands.setNickname(message, args);
             break;
 
         default:
