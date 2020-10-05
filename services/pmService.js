@@ -1,9 +1,11 @@
 var sendEmail = require('./emailService');
 const Discord = require("discord.js");
+const logger = require("../common/logger.js")
+
 
 function validateQubEmail(emailAddress){
 
-    console.log("DEBUG - Entered Validation")
+    logger.Debug("Entered Validation")
     
     if(emailAddress.length != 18) return false;
 
@@ -21,7 +23,7 @@ let pmHandler = function(message){
 
     // Send email if Valid Student Number QUB Email
     if(validateQubEmail(message.content)){
-        console.log("DEBUG - Email Validated")
+        logger.Debug("Email Validated")
         sendEmail(message.content)
 
         const embed = new Discord.MessageEmbed()
@@ -30,10 +32,10 @@ let pmHandler = function(message){
             .setDescription("Check your inbox for our email and click the verify button!")
         message.channel.send(embed);
 
-        console.log("DEBUG - Valid Email")
+        logger.Debug("Valid Email")
 
     }else{
-        console.log("WARN - Invalid Email")
+        logger.Warn("Invalid Email")
 
         const embed = new Discord.MessageEmbed()
             .setColor(0x039BEF)

@@ -1,4 +1,5 @@
 const commands = require('../commands/commands.js')
+const logger = require("../common/logger.js")
 
 let commandHandler = function(message){
 
@@ -27,7 +28,7 @@ let commandHandler = function(message){
             break;
 
         default:
-            console.log("WARN - Invalid Command");
+            logger.Warn("Invalid Command");
             message.channel.send("Unknown Command. Type !help for a list of commands");
             break;
     }

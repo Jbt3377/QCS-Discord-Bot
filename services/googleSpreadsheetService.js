@@ -1,4 +1,5 @@
-const getProperty = require("../envs/environments.js")
+const getProperty = require("../common/environments.js")
+const logger = require("../common/logger.js")
 const GoogleSpreadsheet = require("google-spreadsheet")
 const { promisify } = require("util")
 const creds = require("../client_secret.json")
@@ -10,9 +11,8 @@ let accessSpreadsheet = async function(){
   await promisify(doc.useServiceAccountAuth)(creds)
   const info = await promisify(doc.getInfo)()
   const sheet = info.worksheets[0]
-  console.log("Title: " + sheet.title + ", Rows: " + sheet.rowCount)
+  logger.Debug("Title: " + sheet.title + ", Rows: " + sheet.rowCount)
 
 }
-
 
 module.exports = accessSpreadsheet

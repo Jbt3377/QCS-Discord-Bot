@@ -1,3 +1,5 @@
+const logger = require("../common/logger.js")
+
 let setNickname = function(message, args){
 
     if (message.author.id === message.guild.ownerID) return message.reply('I can\'t change the Guild Owner\'s nickname.');
@@ -9,11 +11,11 @@ let setNickname = function(message, args){
         message.member.setNickname(nickname)
 
         message.reply('Nickname set!');
-        console.log('INFO - Nickname set!');
+        logger.Debug('Nickname set!');
     } catch (error){
         message.reply('Nickname could not be set.');
-        console.log('WARN - Nickname could not be set.');
-        console.log(error.message)
+        logger.Warn('Nickname could not be set.');
+        logger.Error(error.message)
     }
 }
 

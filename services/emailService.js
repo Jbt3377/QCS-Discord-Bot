@@ -1,8 +1,9 @@
-const getProperty = require("../envs/environments.js")
+const getProperty = require("../common/environments.js")
+const logger = require("../common/logger.js")
 
 let sendEmail = function(emailAddress){
 
-    console.log("DEBUG - Entered sendEmail fucntion")
+    logger.Debug("Entered sendEmail function")
 
     const sgMail = require('@sendgrid/mail');
     sgMail.setApiKey(getProperty("SENDGRID_API_KEY"))
@@ -19,10 +20,10 @@ let sendEmail = function(emailAddress){
     }
 
     sgMail.send(msg).then(() => {
-        console.log('DEBUG - Email sent successfully')
+        logger.Debug('Email sent successfully')
     }).catch((error) => {
-        console.log('WARN - Email failed to send:')
-        console.log(error)
+        logger.Warn('Email failed to send:')
+        logger.Error(error)
     });
 }
 
