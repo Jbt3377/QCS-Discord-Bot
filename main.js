@@ -7,7 +7,8 @@ const getProperty = require("./common/environments.js")
 const logger = require("./common/logger.js")
 const commandHandler = require('./services/commandService.js')
 const pmHandler = require("./services/pmService.js")
-const accessSpreadsheet = require('./services/googleSpreadsheetService.js')
+const googleSpreadsheetService = require('./services/googleSpreadsheetService.js')
+const accessSpreadsheet = googleSpreadsheetService.accessSpreadsheet
 
 const PREFIX = "!"
 
@@ -16,14 +17,11 @@ client.once("ready", () => {
     logger.Info("QCS Bot Online")
     logger.Info("SendGrid API Key: " + getProperty("SENDGRID_API_KEY"))
 
-    const guildID = "734847973166678088"
-    const guild = client.guilds.cache.get(guildID)
+    const guild = client.guilds.cache.get("734847973166678088")
 
     guild.members.fetch().then(fetchedMembers => {
         const totalOnline = fetchedMembers.filter(member => member.presence.status === 'online');
         logger.Info('There are currently ' + totalOnline.size + ' members online in this guild!')
-
-        //fetchedMembers.forEach(member => console.log(member.user.username + ' ' + member.id))
     });
 
     accessSpreadsheet()
@@ -50,7 +48,7 @@ client.on("message", message => {
 
     if(message.channel.type === "dm"){
         logger.Debug("Private Message Detected");
-        pmHandler(message)
+        pmHandler(message, client)
         return;
     }
 

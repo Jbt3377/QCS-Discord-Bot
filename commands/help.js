@@ -9,7 +9,8 @@ let help = function(message, args){
         .setColor(0x039BEF)
 
         .setTitle("List of Commands")
-        .addField("Links to QCS Socials", "`!twitter`  `!facebook`  `!instagram`", true)
+        .addField("QCS Socials", "`!twitter`  `!facebook`  `!instagram`", true)
+        .addField("Set your Nickname", "`!setNickname <nickname>`", false)
     message.channel.send(embed);
 }
 

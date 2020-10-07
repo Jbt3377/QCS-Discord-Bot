@@ -1,5 +1,6 @@
 const commands = require('../commands/commands.js')
 const logger = require("../common/logger.js")
+const PREFIX = "!"
 
 let commandHandler = function(message){
 

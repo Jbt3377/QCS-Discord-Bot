@@ -1,7 +1,8 @@
 var sendEmail = require('./emailService');
 const Discord = require("discord.js");
 const logger = require("../common/logger.js")
-
+const googleSpreadsheetService = require('../services/googleSpreadsheetService.js')
+const isQcsMember = googleSpreadsheetService.isQcsMember
 
 function validateQubEmail(emailAddress){
 
@@ -17,7 +18,7 @@ function validateQubEmail(emailAddress){
     return (studentNumber.match(STUDENT_NUMBER_FORMAT)) && (emailDomain === QUB_DOMAIN)
 }
 
-let pmHandler = function(message){
+let pmHandlerEmail = function(message){
 
     // ToDo: Work out the interactions in Bot PMs
 
@@ -43,6 +44,34 @@ let pmHandler = function(message){
             .setDescription("If you believe this is incorrect, message one of our admins")
         message.channel.send(embed);
     }
+}
+
+let pmHandler = async function(message, client){
+
+    logger.Debug("Entering pmHandler")
+
+    await isQcsMember(message).then(isQcs => {
+        if(isQcs){
+            logger.Info("Membership Validated")
+
+            const guild = client.guilds.cache.get("734847973166678088")
+            const userId = message.author.id
+            const member = guild.member(userId)
+
+            if (member.roles.cache.some(role => role.name === 'Awaiting Role')) {
+                member.roles.remove(member.guild.roles.cache.find(role => role.name === "Awaiting Role"))
+            }
+
+            member.roles.add(member.guild.roles.cache.find(role => role.name === "QCS Member"));
+
+            message.channel.send("Your QCS Membership is confirmed!")
+        }else{
+            logger.Info("Membership Not Confirmed")
+            message.channel.send("Your Student Number does not match any QCS Membership! If you think this is incorrect, contact one of our admins.")
+        }
+    })
+
+    logger.Debug("Leaving pmHandler")
 }
 
 module.exports = pmHandler
