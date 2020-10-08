@@ -2,8 +2,7 @@
 The Open-Source Discord Bot for the QCS Discord Server.
 
 It is used for;
-* Registering QUB Students on the public Discord Server
-* Validaing student membership
+* Validating QCS Memberships
 * Setting member NickNames
 
 
@@ -27,26 +26,42 @@ Please install the following;
 
 4. Run `npm i properties-reader` to install Properties Reader.
 
-5. Setup a Discord Test Server
+5. In `bot.properties` set the `BOT_TOKEN` to your personal Bot Token.
 
-6. Follow [this](https://youtu.be/j_sD9udZnCk?t=515) tutorial to set up;
+6. Setup a Discord Test Server
+
+7. Setup SendGrid
+
+8. Setup Google Spreadsheets API
+
+9. Open Command Prompt and type `node .` to run the bot locally.
+
+## Setup Discord
+
+1. Follow [this](https://youtu.be/j_sD9udZnCk?t=515) tutorial to set up the following;
     * A Personal Discord Bot hrough the developer portal
     * Calculate bots permissions
-    * Invite the bot to your Discord Test Server
+    * Invite the bot to a Personal Discord Test Server
 
-7. Rename the `bot.template.properties` file to `bot.properties`.
+2. In `bot.properties` set the `BOT_TOKEN` to your personal Bot Token.
 
-8. In `bot.properties`, set the `BOT_TOKEN` to your personal Bot Token.
+## Setup SendGrid
 
-9. Run `npm install --save @sendgrid/mail` to install SendGrid helper library.
+1. Run `npm install --save @sendgrid/mail` to install SendGrid helper library.
 
-10. Follow [this](https://sendgrid.com/docs/for-developers/sending-email/quickstart-nodejs/) guide to set up;
+2. Follow [this](https://sendgrid.com/docs/for-developers/sending-email/quickstart-nodejs/) guide to set up;
     * SendGrid Account
     * Create and store an API Key
     * Verify Single Sender
 
-11. In `bot.properties`, set the `SENDGRID_API_KEY` to your generated API Key.
+3. In `bot.properties`, set the `SENDGRID_API_KEY` to your generated API Key.
 
-12. Run `npm install google-spreadsheet@2.0.6` to install Google Spreadsheets.
+## Setup Google Spreadsheets API
 
-13. Open Command Prompt and type `node .` to run the bot locally.
+1. Run `npm install google-spreadsheet@2.0.6` to install Google Spreadsheets.
+
+2. Follow [this](https://www.youtube.com/watch?v=UGN6EUi4Yio&ab_channel=Twilio) guide to set up;
+    * Service Account for your Google Drive API
+    * Credentials for the Service Account
+    * A connection to a Spreadsheet in your Google Drive
+
