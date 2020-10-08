@@ -4,6 +4,19 @@ const logger = require("../common/logger.js")
 const googleSpreadsheetService = require('../services/googleSpreadsheetService.js')
 const isQcsMember = googleSpreadsheetService.isQcsMember
 
+const membershipSuccess = new Discord.MessageEmbed()
+    .setAuthor('QCS Bot | Membership Validation', 'https://imgur.com/mywYsgU.png')
+    .setColor(0x039BEF)
+    .setTitle("Membership Confirmed!")
+    .setDescription("Congrats! You've been granted the QCS Member role. :tada:")
+
+const membershipFailed = new Discord.MessageEmbed()
+.setAuthor('QCS Bot | Membership Validation', 'https://imgur.com/mywYsgU.png')
+.setColor(0x039BEF)
+.setTitle("Membership Not Found!")
+.setDescription("Your Student Number does not match any valid QCS Membership. :notepad_spiral::mag:")
+.setFooter("If you think this is incorrect, contact one of our admins.")
+
 function validateQubEmail(emailAddress){
 
     logger.Debug("Entered Validation")
@@ -18,7 +31,7 @@ function validateQubEmail(emailAddress){
     return (studentNumber.match(STUDENT_NUMBER_FORMAT)) && (emailDomain === QUB_DOMAIN)
 }
 
-let pmHandlerEmail = function(message){
+let validateQubStudent = function(message){
 
     // ToDo: Work out the interactions in Bot PMs
 
@@ -46,14 +59,12 @@ let pmHandlerEmail = function(message){
     }
 }
 
-let pmHandler = async function(message, client){
+let validateMembership = async function(message, client){
 
-    logger.Debug("Entering pmHandler")
+    logger.Debug("Entering validateMembership")
 
     await isQcsMember(message).then(isQcs => {
         if(isQcs){
-            logger.Info("Membership Validated")
-
             const guild = client.guilds.cache.get("734847973166678088")
             const userId = message.author.id
             const member = guild.member(userId)
@@ -64,12 +75,23 @@ let pmHandler = async function(message, client){
 
             member.roles.add(member.guild.roles.cache.find(role => role.name === "QCS Member"));
 
-            message.channel.send("Your QCS Membership is confirmed!")
+            logger.Info("Membership Validated")
+            message.channel.send(membershipSuccess)
         }else{
             logger.Info("Membership Not Confirmed")
-            message.channel.send("Your Student Number does not match any QCS Membership! If you think this is incorrect, contact one of our admins.")
+            message.channel.send(membershipFailed)
         }
     })
+
+    logger.Debug("Leaving validateMembership")
+
+}
+
+let pmHandler = async function(message, client){
+
+    logger.Debug("Entering pmHandler")
+
+    await validateMembership(message, client)
 
     logger.Debug("Leaving pmHandler")
 }

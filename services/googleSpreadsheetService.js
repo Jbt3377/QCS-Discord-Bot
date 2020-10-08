@@ -20,7 +20,7 @@ exports.accessSpreadsheet = async function(){
 
 exports.isQcsMember = async function(message){
 
-  logger.Info("Entered isQcsMember Method")
+  logger.Debug("Entered isQcsMember Method")
 
   const studentNumber = message.content
   const doc = new GoogleSpreadsheet(getProperty("SPREADSHEET_ID"))
@@ -40,6 +40,8 @@ exports.isQcsMember = async function(message){
       hasMembership = true
     }
   })
+
+  logger.Debug("Leaving isQcsMember Method")
 
   return hasMembership;
 }

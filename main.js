@@ -32,11 +32,12 @@ client.on('guildMemberAdd', member => {
     member.roles.add(member.guild.roles.cache.find(role => role.name === "Awaiting Role"));
 
     const embed = new Discord.MessageEmbed()
-        .setAuthor('QCS Bot | Registration', 'https://imgur.com/mywYsgU.png')
+        .setAuthor('QCS Bot | Welcome Guide', 'https://imgur.com/mywYsgU.png')
         .setColor(0x039BEF)
-        .setTitle("Welcome to the QCS Discord Server!")
-        .setDescription("Enter your QUB Email Address below to verify you are a Queen's Student")
-        .setFooter("Message should be in the form <student-number>@qub.ac.uk");
+        .setTitle("Welcome to the QCS Discord Server! :partying_face::tada:")
+        .addField("Roles", "Head over to #:id:get-roles and add a reaction to give yourself roles.")
+        .addField("Access", "Make sure to select your student type to gain access to the rest of the server :closed_lock_with_key:")
+        .addField("Membership", "Type your Student Number below if you have a QCS Membership to gain the QCS Member Role! :arrow_down:")
     member.send(embed);
  });
 
