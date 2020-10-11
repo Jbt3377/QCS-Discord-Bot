@@ -65,3 +65,6 @@ Please install the following;
     * Credentials for the Service Account
     * A connection to a Spreadsheet in your Google Drive
 
+3. In `bot.properties`, set the `SPREADSHEET_ID` to the ID of the Spreadsheet on your Google Drive (found in the URL).
+
+
