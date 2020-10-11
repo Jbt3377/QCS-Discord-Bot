@@ -11,11 +11,13 @@ exports.accessSpreadsheet = async function(){
   await promisify(doc.useServiceAccountAuth)(creds)
   const info = await promisify(doc.getInfo)()
   const sheet = info.worksheets[0]
-  logger.Debug("Title: " + sheet.title + ", Rows: " + sheet.rowCount)
+  logger.Info("Spreadsheet Info [Title: " + sheet.title + ", Rows: " + sheet.rowCount + "]")
 
   const rows = await promisify(sheet.getRows)({
     offset: 1
   })
+
+  return rows
 }
 
 exports.isQcsMember = async function(message){
@@ -23,22 +25,15 @@ exports.isQcsMember = async function(message){
   logger.Debug("Entered isQcsMember Method")
 
   const studentNumber = message.content
-  const doc = new GoogleSpreadsheet(getProperty("SPREADSHEET_ID"))
-
-  await promisify(doc.useServiceAccountAuth)(creds)
-  const info = await promisify(doc.getInfo)()
-  const sheet = info.worksheets[0]
-
-  const rows = await promisify(sheet.getRows)({
-    offset: 1
-  })
-
   var hasMembership = false
-  rows.forEach(row => {
-    if(row.studentid == studentNumber){
-      logger.Debug("Found QCS Member with ID: " + studentNumber)
-      hasMembership = true
-    }
+
+  await exports.accessSpreadsheet().then(rows => {
+    rows.forEach(row => {
+      if(row.studentid == studentNumber){
+        logger.Debug("Found QCS Member with ID: " + studentNumber)
+        hasMembership = true
+      }
+    })
   })
 
   logger.Debug("Leaving isQcsMember Method")

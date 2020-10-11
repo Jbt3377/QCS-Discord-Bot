@@ -4,9 +4,9 @@ const client = new Discord.Client();
 
 // Require Services
 const getProperty = require("./common/environments.js")
-const logger = require("./common/logger.js")
 const commandHandler = require('./services/commandService.js')
 const pmHandler = require("./services/pmService.js")
+const logger = require("./common/logger.js")
 const googleSpreadsheetService = require('./services/googleSpreadsheetService.js')
 const accessSpreadsheet = googleSpreadsheetService.accessSpreadsheet
 
@@ -15,13 +15,12 @@ const PREFIX = "!"
 
 client.once("ready", () => {
     logger.Info("QCS Bot Online")
-    logger.Info("SendGrid API Key: " + getProperty("SENDGRID_API_KEY"))
-
     const guild = client.guilds.cache.get("734847973166678088")
 
     guild.members.fetch().then(fetchedMembers => {
+        logger.Info('There are a total of ' + fetchedMembers.size + ' members in this guild')
         const totalOnline = fetchedMembers.filter(member => member.presence.status === 'online');
-        logger.Info('There are currently ' + totalOnline.size + ' members online in this guild!')
+        logger.Info('There are currently ' + totalOnline.size + ' members online!')
     });
 
     accessSpreadsheet()
@@ -47,12 +46,15 @@ client.on("message", message => {
 
     logger.Debug("New Message Detected");
 
+    // Check and Handle Private Message
     if(message.channel.type === "dm"){
         logger.Debug("Private Message Detected");
         pmHandler(message, client)
         return;
     }
 
+    // Chech and Handle Server Command
+    logger.Debug("Command Detected");
     if (message.content.startsWith(PREFIX)) commandHandler(message);
 });
 

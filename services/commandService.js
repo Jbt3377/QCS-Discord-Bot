@@ -28,6 +28,10 @@ let commandHandler = function(message){
             commands.setNickname(message, args);
             break;
 
+        case "membercount":
+            commands.memberCount(message, args);
+            break;
+
         default:
             logger.Warn("Invalid Command");
             message.channel.send("Unknown Command. Type !help for a list of commands");
